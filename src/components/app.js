@@ -1,21 +1,10 @@
 'use strict';
 
 import React, { Component } from 'react';
-import SearchBar from './search_bar';
+import { Link } from 'react-router';
+// import SearchBar from './search_bar';
 
 export default class App extends Component {
-
-  // Constuctor function
-  constructor(props){
-    super(props);
-
-    this.state = { term: '' };
-  }
-
-  // Changes the state
-  changeState(event) {
-    this.setState({ term: event.target.value });
-  }
 
   // Renders the component
   render() {
@@ -30,11 +19,13 @@ export default class App extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="#">Movie-Search-App (React-Redux)</a>
+              <Link to="/" className="navbar-brand" href="#">Movie-Search-App (React-Redux)</Link>
             </div>
           </div>
         </nav>
-        <SearchBar changeState={ this.changeState.bind(this) } value={ this.state.term }/>
+        <div>
+          {this.props.children}
+        </div>
       </div>
 
     );

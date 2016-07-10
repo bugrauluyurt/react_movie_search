@@ -1,9 +1,10 @@
 'use strict';
 
 import { combineReducers } from 'redux';
+import movieReducer from './reducer_movie_list';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  movieList: movieReducer
 });
 
 export default rootReducer;
