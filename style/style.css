@@ -6,3 +6,12 @@
   max-width:100px;
   height:150px;
 }
+
+.hidden {
+  display:none;
+}
+
+.visible {
+  color:red;
+  display:inherit;
+}

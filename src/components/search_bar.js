@@ -8,7 +8,7 @@ class SearchBar extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { search: '' };
+    this.state = { search: '', typeError: false };
   }
 
   static contextTypes = {
@@ -25,12 +25,14 @@ class SearchBar extends Component {
 
   onSubmit(event){
     event.preventDefault();
-    if (this.state.search !== '') {
-      this.props.fetchMovie(this.state.search)
+    const searchValue = this.state.search;
+    if (searchValue !== '' && searchValue.length >= 3) {
+      this.props.fetchMovie(searchValue)
         .then((response) => {
-          console.log(response);
           this.context.router.push('/movie-list');
         });
+    } else {
+      this.setState({typeError: true});
     }
   }
 
@@ -47,6 +49,7 @@ class SearchBar extends Component {
                   </span>
               </div>
             </form>
+            <p className={this.state.typeError ? 'visible' : 'hidden'}>Pls do not left the field blank or write chars less than 3</p>
         </div>
       </div>
     );

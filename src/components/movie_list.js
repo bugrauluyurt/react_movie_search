@@ -4,54 +4,47 @@ import { Link } from 'react-router';
 
 class MovieList extends Component {
 
-  componentWillMount() {
-    // Do what you want to do when the component mounts
-    if (this.props.movieList[0].Search) {
-      this.renderMovieList = function() {
-        const movieArray = this.props.movieList[0].Search;
-        if (movieArray) {
-          return movieArray.map(movieItem => {
+  renderMovieList() {
+    const movieArray = this.props.movieList[0].Search;
 
-            return (
-              <div key={movieItem.imdbID} className="col-md-6">
-                <div className="panel panel-default">
-                  <div className="panel-heading">
-                    <a href="#" className="panel-title">{movieItem.Title}</a>
-                  </div>
-                  <div className="panel-body">
-                    <div className="col-xs-3">
-                      <img className="poster-image" src={movieItem.Poster}/>
-                    </div>
-                    <div className="col-xs-9">
-                      <p><b>Type:</b> {movieItem.Type}</p>
-                      <p><b>Year:</b> {movieItem.Year}</p>
-                      <p><b>imdbID:</b> {movieItem.imdbID}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-
-          });
-        }
+    return movieArray.map(movieItem => {
+      if (movieItem.Poster === 'N/A') {
+        movieItem.Poster = 'http://placehold.it/100x150';
       }
-    } else {
-      this.context.router.push('/');
-      console.log('No data arrived');
-    }
+      return (
+        <div key={movieItem.imdbID} className="col-md-6">
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <a href="#" className="panel-title">{movieItem.Title}</a>
+            </div>
+            <div className="panel-body">
+              <div className="col-xs-3">
+                <img className="poster-image" src={movieItem.Poster}/>
+              </div>
+              <div className="col-xs-9">
+                <p><b>Type:</b> {movieItem.Type}</p>
+                <p><b>Year:</b> {movieItem.Year}</p>
+                <p><b>imdbID:</b> {movieItem.imdbID}</p>
+                <p><b>Desc:</b> Lorem ipsum dolor sit amet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
   }
 
   renderPagination() {
     const totalPage = this.props.movieList[0].totalResults;
-    const pageNum = Math.floor(totalPage / 10);
+    const pageNum = totalPage / 10;
     const pageArr = [];
-    for (var i = 1; i <= pageNum; i++) {
+    for (var i = 1; i < pageNum + 1; i++) {
       pageArr.push(i);
     }
 
     return pageArr.map(page => {
       return (
-        <a key={page} href="#"> {page} </a>
+        <Link key={page} to=""> {page} </Link>
       );
     });
   }
@@ -61,6 +54,14 @@ class MovieList extends Component {
   };
 
   render() {
+    if (!this.props.movieList[0].Search) {
+      return (
+        <div>
+          <p>There is no such movie</p>
+          <Link to="/" className="btn btn-default">Back to search</Link>
+        </div>
+      )
+    }
     return (
       <div>
         <Link to="/" className="btn btn-default">Back to search</Link>
