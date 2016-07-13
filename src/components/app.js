@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 // import SearchBar from './search_bar';
 
 export default class App extends Component {
-
+  
   // Renders the component
   render() {
     return (
@@ -27,7 +27,6 @@ export default class App extends Component {
           {this.props.children}
         </div>
       </div>
-
     );
   }
 }

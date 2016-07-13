@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { fetchMovie } from '../actions/index';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 
 class SearchBar extends Component {
@@ -26,10 +26,11 @@ class SearchBar extends Component {
   onSubmit(event){
     event.preventDefault();
     const searchValue = this.state.search;
+    const pageNum = 1;
     if (searchValue !== '' && searchValue.length >= 3) {
-      this.props.fetchMovie(searchValue)
+      this.props.fetchMovie(searchValue, pageNum)
         .then((response) => {
-          this.context.router.push('/movie-list');
+          this.context.router.push('/movie-list/' + searchValue + '/' + pageNum);
         });
     } else {
       this.setState({typeError: true});

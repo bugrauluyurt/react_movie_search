@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { fetchMovie } from '../actions/index';
 
 class MovieList extends Component {
 
@@ -44,7 +46,7 @@ class MovieList extends Component {
 
     return pageArr.map(page => {
       return (
-        <Link key={page} to=""> {page} </Link>
+        <a key={page} to=""> {page} </a>
       );
     });
   }
@@ -65,7 +67,7 @@ class MovieList extends Component {
     return (
       <div>
         <Link to="/" className="btn btn-default">Back to search</Link>
-        <div>Search results for: Name of the movie</div>
+        <div>Search results for: {this.props.params.movieName}</div>
         <hr/>
         <div>
           Pages: {this.renderPagination()}
@@ -83,4 +85,8 @@ function mapStateToProps({ movieList }) {
   return { movieList };
 }
 
-export default connect(mapStateToProps)(MovieList);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchMovie }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

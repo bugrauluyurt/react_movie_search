@@ -8,6 +8,6 @@ import SearchBar from './components/search_bar';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={SearchBar} />
-    <Route path="/movie-list" component={MovieList} />
+    <Route path="/movie-list/:movieName/:pageNum" component={MovieList} />
   </Route>
 )
